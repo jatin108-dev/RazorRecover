@@ -1,11 +1,28 @@
+import { useState } from "react";
+import DashboardLayout from "./layouts/DashboardLayout";
+import Dashboard from "./pages/Dashboard";
+
 function App() {
+  const [activePage, setActivePage] = useState("Dashboard");
+
+  const renderPage = () => {
+    switch (activePage) {
+      case "Dashboard":
+        return <Dashboard />;
+
+      default:
+        return <Dashboard />;
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-white">
-        RazorRecover 🚀
-      </h1>
-    </div>
-  )
+    <DashboardLayout
+      activePage={activePage}
+      onNavigate={setActivePage}
+    >
+      {renderPage()}
+    </DashboardLayout>
+  );
 }
 
-export default App
+export default App;
