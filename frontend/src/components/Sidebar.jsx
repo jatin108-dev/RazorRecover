@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   CreditCard,
@@ -9,12 +10,36 @@ import {
 } from "lucide-react";
 
 const menuItems = [
-  { name: "Dashboard", icon: LayoutDashboard },
-  { name: "Payments", icon: CreditCard },
-  { name: "Customers", icon: Users },
-  { name: "AI Agent", icon: Bot },
-  { name: "Analytics", icon: BarChart3 },
-  { name: "Settings", icon: Settings },
+  {
+    name: "Dashboard",
+    icon: LayoutDashboard,
+    path: "/",
+  },
+  {
+    name: "Payments",
+    icon: CreditCard,
+    path: "/payments",
+  },
+  {
+    name: "Customers",
+    icon: Users,
+    path: "/customers",
+  },
+  {
+    name: "AI Agent",
+    icon: Bot,
+    path: "/ai-agent",
+  },
+  {
+    name: "Analytics",
+    icon: BarChart3,
+    path: "/analytics",
+  },
+  {
+    name: "Settings",
+    icon: Settings,
+    path: "/settings",
+  },
 ];
 
 function Sidebar({ isOpen, onClose, activePage, onNavigate }) {
@@ -72,33 +97,33 @@ function Sidebar({ isOpen, onClose, activePage, onNavigate }) {
 
         {/* Navigation */}
         <nav className="px-3 py-6 space-y-1 flex-1">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            const active = activePage === item.name;
+         {menuItems.map((item) => {
+  const Icon = item.icon;
 
-            return (
-              <button
-                key={item.name}
-                onClick={() => onNavigate(item.name)}
-                className={`
-                  w-full
-                  flex items-center gap-3
-                  px-4 py-3
-                  rounded-xl
-                  text-sm
-                  transition
-                  ${
-                    active
-                      ? "bg-violet-600 text-white"
-                      : "text-gray-400 hover:bg-white/5 hover:text-white"
-                  }
-                `}
-              >
-                <Icon size={18} />
-                <span>{item.name}</span>
-              </button>
-            );
-          })}
+  return (
+    <NavLink
+      key={item.name}
+      to={item.path}
+      onClick={onClose}
+      className={({ isActive }) => `
+        w-full
+        flex items-center gap-3
+        px-4 py-3
+        rounded-xl
+        text-sm
+        transition
+        ${
+          isActive
+            ? "bg-violet-600 text-white"
+            : "text-gray-400 hover:bg-white/5 hover:text-white"
+        }
+      `}
+    >
+      <Icon size={18} />
+      <span>{item.name}</span>
+    </NavLink>
+  );
+})}
         </nav>
 
         {/* AI Status */}
@@ -118,12 +143,13 @@ function Sidebar({ isOpen, onClose, activePage, onNavigate }) {
             Monitoring 128 payments
           </p>
 
-          <button
-            onClick={() => onNavigate("AI Agent")}
-            className="w-full border border-violet-500/50 text-violet-300 text-xs py-2 rounded-lg hover:bg-violet-600/20 transition"
-          >
-            View Agent
-          </button>
+<NavLink
+  to="/ai-agent"
+  onClick={onClose}
+  className="block w-full border border-violet-500/50 text-violet-300 text-xs py-2 rounded-lg text-center hover:bg-violet-600/20 transition"
+>
+  View Agent
+</NavLink>
         </div>
       </aside>
     </>

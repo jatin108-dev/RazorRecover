@@ -1,27 +1,28 @@
-import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import DashboardLayout from "./layouts/DashboardLayout";
+
 import Dashboard from "./pages/Dashboard";
+import Payments from "./pages/Payments";
+import Customers from "./pages/Customers";
+import AIAgent from "./pages/AIAgent";
+import Analytics from "./pages/Analytics";
+import Settings from "./pages/Settings";
 
 function App() {
-  const [activePage, setActivePage] = useState("Dashboard");
-
-  const renderPage = () => {
-    switch (activePage) {
-      case "Dashboard":
-        return <Dashboard />;
-
-      default:
-        return <Dashboard />;
-    }
-  };
-
   return (
-    <DashboardLayout
-      activePage={activePage}
-      onNavigate={setActivePage}
-    >
-      {renderPage()}
-    </DashboardLayout>
+    <BrowserRouter>
+      <DashboardLayout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/payments" element={<Payments />} />
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/ai-agent" element={<AIAgent />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </DashboardLayout>
+    </BrowserRouter>
   );
 }
 
