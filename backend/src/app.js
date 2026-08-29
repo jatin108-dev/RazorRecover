@@ -1,15 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 
+const webhookRoutes = require("./routes/webhookRoutes");
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/webhooks", webhookRoutes);
+
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "RazorRecover backend is running 🚀",
+    message: "RazorRecover backend is running ",
   });
 });
 
