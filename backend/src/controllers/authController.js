@@ -1,5 +1,12 @@
 const authService = require("../services/authService");
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: false,
+  sameSite: "lax",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+};
+
 const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -24,10 +31,12 @@ const signup = async (req, res) => {
       password,
     });
 
+    res.cookie("token", result.token, cookieOptions);
+
     return res.status(201).json({
       success: true,
-      message: "Account created successfully",
-      ...result,
+      message: "Merchant account created successfully",
+      user: result.user,
     });
   } catch (error) {
     return res.status(400).json({
@@ -53,10 +62,12 @@ const login = async (req, res) => {
       password,
     });
 
+    res.cookie("token", result.token, cookieOptions);
+
     return res.status(200).json({
       success: true,
       message: "Login successful",
-      ...result,
+      user: result.user,
     });
   } catch (error) {
     return res.status(401).json({
@@ -66,7 +77,29 @@ const login = async (req, res) => {
   }
 };
 
+const logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
+};
+
+const getMe = (req, res) => {
+  return res.status(200).json({
+    success: true,
+    user: req.user,
+  });
+};
+
 module.exports = {
   signup,
   login,
+  logout,
+  getMe,
 };
