@@ -1,6 +1,11 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
+import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
+
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 import Dashboard from "./pages/Dashboard";
 import Payments from "./pages/Payments";
@@ -9,75 +14,87 @@ import AIAgent from "./pages/AIAgent";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 
-import Landing from "./pages/Landing";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-
 function App() {
   return (
     <Routes>
-      {/* Public Pages */}
+
+      {/* PUBLIC ROUTES */}
+
       <Route path="/" element={<Landing />} />
+
       <Route path="/login" element={<Login />} />
+
       <Route path="/signup" element={<Signup />} />
 
-      {/* Dashboard */}
+
+      {/* PROTECTED ROUTES */}
+
       <Route
         path="/dashboard"
         element={
-          <DashboardLayout>
-            <Dashboard />
-          </DashboardLayout>
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Dashboard />
+            </DashboardLayout>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/payments"
         element={
-          <DashboardLayout>
-            <Payments />
-          </DashboardLayout>
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Payments />
+            </DashboardLayout>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/customers"
         element={
-          <DashboardLayout>
-            <Customers />
-          </DashboardLayout>
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Customers />
+            </DashboardLayout>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/ai-agent"
         element={
-          <DashboardLayout>
-            <AIAgent />
-          </DashboardLayout>
+          <ProtectedRoute>
+            <DashboardLayout>
+              <AIAgent />
+            </DashboardLayout>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/analytics"
         element={
-          <DashboardLayout>
-            <Analytics />
-          </DashboardLayout>
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Analytics />
+            </DashboardLayout>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/settings"
         element={
-          <DashboardLayout>
-            <Settings />
-          </DashboardLayout>
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Settings />
+            </DashboardLayout>
+          </ProtectedRoute>
         }
       />
 
-      {/* Unknown URL */}
-      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
