@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import DashboardLayout from "./layouts/DashboardLayout";
 
@@ -9,20 +9,76 @@ import AIAgent from "./pages/AIAgent";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+
 function App() {
   return (
-    <BrowserRouter>
-      <DashboardLayout>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/payments" element={<Payments />} />
-          <Route path="/customers" element={<Customers />} />
-          <Route path="/ai-agent" element={<AIAgent />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
-      </DashboardLayout>
-    </BrowserRouter>
+    <Routes>
+      {/* Public Pages */}
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+
+      {/* Dashboard */}
+      <Route
+        path="/dashboard"
+        element={
+          <DashboardLayout>
+            <Dashboard />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/payments"
+        element={
+          <DashboardLayout>
+            <Payments />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/customers"
+        element={
+          <DashboardLayout>
+            <Customers />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/ai-agent"
+        element={
+          <DashboardLayout>
+            <AIAgent />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/analytics"
+        element={
+          <DashboardLayout>
+            <Analytics />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/settings"
+        element={
+          <DashboardLayout>
+            <Settings />
+          </DashboardLayout>
+        }
+      />
+
+      {/* Unknown URL */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
